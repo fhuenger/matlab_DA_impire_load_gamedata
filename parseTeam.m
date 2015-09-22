@@ -1,14 +1,4 @@
 function [ result ] = parseTeam( section,fid,team,player )
-%parseTeam Reads X,Y and Speed parameter of one player from a VIS.TRACK pos file
-%   First input parameter is the section to read (1,2,3,4)
-%   Second input parameter is the file id. (the result of fopen)
-%   Third input parameter define the team (1,2)
-%   Fourth input parameter define the player numer (1-11)
-%   Don't forget to close the file after reading. 
-%   Result is the a matrix with size [3xn] (x, y, speed)(n is the number of frames in
-%   this section
-%
-% AUS FSCANF (AUS G MACHE D!!! THOMAS C** SEITE 207
 
 player_x=[];player_y=[];player_speed=[]; referees=[]; k = -1;
 while ~feof(fid),
@@ -38,7 +28,7 @@ while ~feof(fid),
     end
     %parse Ball
     fscanf(fid, '%[#]',1);
-    ball = fscanf(fid, '%d,%d,%d,%d,%d,%d;', 6); %raute zum schluss raus genommen nach 6g
+    ball = fscanf(fid, '%d,%d,%d,%d,%d,%d;', 6);
 %     if k == 1;
     %parse Additional Info
     if frame == [0;1;1]
@@ -49,4 +39,3 @@ while ~feof(fid),
 end
 result = [player_x; player_y; player_speed]';
 end
-

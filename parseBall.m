@@ -1,10 +1,5 @@
 function [ result ] = parseBall( section,fid )
-%parseBall Reads X,Y and Speed parameter of ball from a VIS.TRACK pos file
-%   First input parameter is the section to read (1,2,3,4)
-%   Second input parameter is the file id. (the result of fopen)
-%   Don't forget to close the file after reading. 
-%   Result is the a matrix with size [3xn](x, y, speed) (n is the number of frames in
-%   this section
+
 ball_x=[];ball_y=[];ball_z=[];ball_speed=[];ball_flag=[];ball_possesion=[];
 while ~feof(fid),
     % parse Frame  
@@ -29,12 +24,12 @@ while ~feof(fid),
     %save Ball
     if(frame(3)==section),
         ballTmp=fscanf(fid, '%d,%d,%d,%d,%d,%d;#', 6);
-        ball_x=[ball_x int16(ballTmp(1)*10000)]; %#ok<AGROW>
-        ball_y=[ball_y int16(ballTmp(2)*10000)]; %#ok<AGROW>
-        ball_z=[ball_z int16(ballTmp(3)*10000)]; %#ok<AGROW>
-        ball_speed=[ball_speed int16(ballTmp(4)*100)]; %#ok<AGROW>
-        ball_flag=[ball_flag int16(ballTmp(5)*100)]; %#ok<AGROW>
-        ball_possesion=[ball_possesion int16(ballTmp(6))]; %#ok<AGROW>
+        ball_x=[ball_x int16(ballTmp(1)*10000)];
+        ball_y=[ball_y int16(ballTmp(2)*10000)];
+        ball_z=[ball_z int16(ballTmp(3)*10000)];
+        ball_speed=[ball_speed int16(ballTmp(4)*100)];
+        ball_flag=[ball_flag int16(ballTmp(5)*100)];
+        ball_possesion=[ball_possesion int16(ballTmp(6))];
     else
         fscanf(fid, '%d,%d,%d,%d,%d,%d;', 6);
     end
@@ -45,6 +40,4 @@ while ~feof(fid),
     end
 end
 result=[ball_x; ball_y; ball_z; ball_speed; ball_flag; ball_possesion]';
-%result=[ball_x; ball_y; ball_speed; ball_flag; ball_possesion];
 end
-
